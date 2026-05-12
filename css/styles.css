@@ -331,7 +331,7 @@ main {
     }
 
     .hero-image {
-        max-width: 350px;
+        max-width: 400px;
         width: 100%;
         height: auto;
         margin-right: 20px;
@@ -1342,7 +1342,7 @@ footer {
     .hero-image {
         margin-right: 0;
         margin-top: -10px;
-        max-width: 280px;
+        max-width: 90vw;
     }
 
     .cta-buttons {
@@ -1411,7 +1411,7 @@ footer {
     }
 
     .hero-image {
-        max-width: 220px;
+        max-width: 95vw;
         margin-top: -15px;
     }
 
