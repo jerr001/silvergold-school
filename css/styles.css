@@ -331,7 +331,7 @@ main {
     }
 
     .hero-image {
-        max-width: 320px;
+        max-width: 350px;
         width: 100%;
         height: auto;
         margin-right: 20px;
@@ -840,7 +840,7 @@ section {
 }
 
 .carousel-nav.prev {
-    left: 10px;
+    left: 0px;
 }
 
 .carousel-nav.next {
@@ -1341,7 +1341,8 @@ footer {
 
     .hero-image {
         margin-right: 0;
-        max-width: 250px;
+        margin-top: -10px;
+        max-width: 280px;
     }
 
     .cta-buttons {
@@ -1362,7 +1363,7 @@ footer {
     }
 
     .carousel-nav.prev {
-        left: 5px;
+        left: 0px;
     }
 
     .carousel-nav.next {
@@ -1410,7 +1411,8 @@ footer {
     }
 
     .hero-image {
-        max-width: 200px;
+        max-width: 220px;
+        margin-top: -15px;
     }
 
     .btn {
@@ -1426,7 +1428,7 @@ footer {
     }
 
     .carousel-nav.prev {
-        left: 2px;
+        left: 0px;
     }
 
     .carousel-nav.next {
