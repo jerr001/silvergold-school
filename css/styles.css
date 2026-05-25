@@ -12,7 +12,8 @@
     --button-primary-text: #003366;
     --shadow: rgba(0, 0, 0, 0.1);
     --border-radius: 12px;
-    --transition: all 0.3s ease;
+    --transition: 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+    --color-transition: background 0.28s ease, border-color 0.28s ease;
 }
 
 [data-theme="dark"] {
@@ -48,6 +49,33 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+}
+
+.card-box,
+.about-preview-card,
+.about-card,
+.academic-section,
+.academic-card,
+.admission-card,
+.level-card,
+.why-card,
+.admissions-card,
+.highlight-card,
+.news-card,
+.testimonial-card,
+.gallery-card,
+.contact-card,
+.info-item,
+.carousel-item {
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition), border-color var(--transition);
+    will-change: transform, box-shadow, background, border-color;
+}
+
+.about-preview-card:hover,
+.card-box:hover,
+.carousel-item:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 45px var(--shadow);
 }
 
 /* Animations */
@@ -179,7 +207,7 @@ nav {
 }
 
 .logo img {
-    height: 60px;
+    height: 80px;
     transition: var(--transition);
 }
 
@@ -1246,12 +1274,30 @@ section {
     margin-bottom: 0.8rem;
 }
 
-.admission-card .btn {
-    margin-top: 1.5rem;
-    animation: fadeInUp 0.6s ease-out 0.5s both;
-}
+    .admission-card .btn {
+        margin-top: 1.5rem;
+        animation: fadeInUp 0.6s ease-out 0.5s both;
+    }
 
-/* Footer */
+    .about-card:hover,
+    .academic-section:hover,
+    .academic-card:hover,
+    .admission-card:hover,
+    .admissions-card:hover,
+    .level-card:hover,
+    .why-card:hover,
+    .highlight-card:hover,
+    .news-card:hover,
+    .testimonial-card:hover,
+    .gallery-card:hover,
+    .contact-card:hover,
+    .info-item:hover,
+    .carousel-item:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 45px var(--shadow);
+    }
+
+    /* Footer */
 footer {
     background-color: var(--primary-color);
     color: white;
