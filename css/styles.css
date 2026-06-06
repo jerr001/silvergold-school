@@ -2,12 +2,12 @@
 :root {
     --primary-color: #003366;
     --heading-color: #003366;
-    --secondary-color: #87CEEB;
-    --accent-color: #D3D3D3;
-    --background-color: #f8f9fa;
+    --secondary-color: #003366;
+    --accent-color: #003366;
+    --background-color: #ffffff;
     --card-background: #ffffff;
-    --text-color: #333333;
-    --text-light: #666666;
+    --text-color: #003366;
+    --text-light: #003366;
     --button-text: #ffffff;
     --button-primary-text: #003366;
     --shadow: rgba(0, 0, 0, 0.1);
@@ -421,7 +421,7 @@ main {
 }
 
 .primary:hover {
-    background-color: #76B9D6;
+    background-color: var(--accent-color);
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
@@ -434,8 +434,8 @@ main {
 }
 
 .secondary:hover {
-    background-color: #B8B8B8;
-    color: var(--primary-color);
+    background-color: var(--primary-color);
+    color: white;
     transform: translateY(-3px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
 }
@@ -915,11 +915,11 @@ section {
 }
 
 .testimonial-card {
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--card-background);
     padding: 30px;
     border-radius: var(--border-radius);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
+    border: 2px solid var(--secondary-color);
+    box-shadow: 0 8px 25px var(--shadow);
     transition: var(--transition);
     animation: fadeInUp 0.8s ease-out;
     animation-fill-mode: both;
@@ -931,9 +931,9 @@ section {
 
 .testimonial-card:hover {
     transform: translateY(-8px);
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--secondary-color);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    background: var(--card-background);
+    border-color: var(--primary-color);
+    box-shadow: 0 15px 40px var(--shadow);
 }
 
 .testimonial-card .stars {
@@ -953,7 +953,7 @@ section {
 .testimonial-card cite {
     font-style: normal;
     font-weight: 600;
-    color: #87CEEB;
+    color: var(--primary-color);
     animation: fadeInUp 0.6s ease-out 0.3s both;
 }
 
@@ -979,6 +979,7 @@ section {
     animation: fadeInUp 0.8s ease-out;
     animation-fill-mode: both;
     cursor: pointer;
+    border: 2px solid var(--secondary-color);
 }
 
 .gallery-card:nth-child(1) { animation-delay: 0.1s; }
@@ -1230,8 +1231,8 @@ section {
 
 .form-group input:focus, .form-group textarea:focus {
     outline: none;
-    border-color: var(--secondary-color);
-    box-shadow: 0 0 0 3px rgba(135, 206, 235, 0.1);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 51, 102, 0.1);
 }
 
 .form-group textarea {
@@ -1440,7 +1441,7 @@ footer {
 }
 
 .footer-section a:hover {
-    color: #87CEEB;
+    color: var(--primary-color);
     transform: translateX(5px);
 }
 
