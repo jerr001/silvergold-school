@@ -185,3 +185,80 @@ document.addEventListener('DOMContentLoaded', () => {
         setInterval(() => showSlide(currentSlide + 1), 7000);
     }
 });
+
+// Gallery lightbox functionality
+const galleryCards = document.querySelectorAll('.gallery-card');
+const imageModal = document.getElementById('imageModal');
+const modalImage = document.getElementById('modalImage');
+const modalClose = document.querySelector('.modal-close');
+const modalPrev = document.querySelector('.modal-prev');
+const modalNext = document.querySelector('.modal-next');
+
+let currentImageIndex = 0;
+const images = Array.from(galleryCards).map(card => ({
+    src: card.dataset.image,
+    alt: card.dataset.alt
+}));
+
+if (galleryCards.length > 0) {
+    // Open modal on gallery card click
+    galleryCards.forEach((card, index) => {
+        card.addEventListener('click', () => {
+            currentImageIndex = index;
+            openModal();
+        });
+    });
+
+    // Close modal
+    modalClose.addEventListener('click', closeModal);
+    imageModal.addEventListener('click', (e) => {
+        if (e.target === imageModal) {
+            closeModal();
+        }
+    });
+
+    // Navigation
+    modalPrev.addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+        updateModalImage();
+    });
+
+    modalNext.addEventListener('click', (e) => {
+        e.stopPropagation();
+        currentImageIndex = (currentImageIndex + 1) % images.length;
+        updateModalImage();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (imageModal.classList.contains('active')) {
+            if (e.key === 'Escape') {
+                closeModal();
+            } else if (e.key === 'ArrowLeft') {
+                currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                updateModalImage();
+            } else if (e.key === 'ArrowRight') {
+                currentImageIndex = (currentImageIndex + 1) % images.length;
+                updateModalImage();
+            }
+        }
+    });
+}
+
+function openModal() {
+    imageModal.classList.add('active');
+    updateModalImage();
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    imageModal.classList.remove('active');
+    document.body.style.overflow = 'auto';
+}
+
+function updateModalImage() {
+    const image = images[currentImageIndex];
+    modalImage.src = image.src;
+    modalImage.alt = image.alt;
+}

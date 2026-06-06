@@ -42,28 +42,28 @@
         <section class="gallery-section">
             <div class="container">
                 <div class="gallery-grid">
-                    <div class="gallery-card">
+                    <div class="gallery-card" data-image="images/hero-image.jpg" data-alt="Gallery image 1">
                         <img src="images/hero-image.jpg" alt="Gallery image">
                     </div>
-                    <div class="gallery-card">
+                    <div class="gallery-card" data-image="images/image-1.jpg" data-alt="Gallery image 2">
                         <img src="images/image-1.jpg" alt="Gallery image">
                     </div>
-                    <div class="gallery-card">
+                    <div class="gallery-card" data-image="images/image-2.jpg" data-alt="Gallery image 3">
                         <img src="images/image-2.jpg" alt="Gallery image">
                     </div>
-                    <div class="gallery-card">
+                    <div class="gallery-card" data-image="images/image-3.jpg" data-alt="Gallery image 4">
                         <img src="images/image-3.jpg" alt="Gallery image">
                     </div>
-                    <div class="gallery-card">
+                    <div class="gallery-card" data-image="images/image-4.jpg" data-alt="Gallery image 5">
                         <img src="images/image-4.jpg" alt="Gallery image">
                     </div>
-                    <div class="gallery-card">
+                    <div class="gallery-card" data-image="images/image-5.jpg" data-alt="Gallery image 6">
                         <img src="images/image-5.jpg" alt="Gallery image">
                     </div>
-                    <div class="gallery-card">
+                    <div class="gallery-card" data-image="images/image-6.jpg" data-alt="Gallery image 7">
                         <img src="images/image-6.jpg" alt="Gallery image">
                     </div>
-                    <div class="gallery-card">
+                    <div class="gallery-card" data-image="images/image-7.jpg" data-alt="Gallery image 8">
                         <img src="images/image-7.jpg" alt="Gallery image">
                     </div>
                 </div>
@@ -102,6 +102,18 @@
             </div>
         </div>
     </footer>
+
+    <!-- Image Lightbox Modal -->
+    <div id="imageModal" class="image-modal">
+        <span class="modal-close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Enlarged gallery image">
+        </div>
+        <div class="modal-navigation">
+            <button class="modal-prev" aria-label="Previous image">❮</button>
+            <button class="modal-next" aria-label="Next image">❯</button>
+        </div>
+    </div>
 
     <script src="js/script.js"></script>
 </body>
