@@ -201,9 +201,12 @@ body:not([data-theme="dark"]) header {
 }
 
 body:not([data-theme="dark"]) header .nav-links a,
-body:not([data-theme="dark"]) header .theme-toggle,
-body:not([data-theme="dark"]) header .hamburger span {
+body:not([data-theme="dark"]) header .theme-toggle {
     color: var(--primary-color);
+}
+
+body:not([data-theme="dark"]) header .hamburger span {
+    background-color: var(--primary-color);
 }
 
 body:not([data-theme="dark"]) header .logo img {
@@ -1532,6 +1535,16 @@ footer {
 
     .nav-links.active {
         display: flex;
+    }
+
+    body:not([data-theme="dark"]) .nav-links.active a {
+        color: white;
+    }
+
+    body:not([data-theme="dark"]) header .nav-links a:hover,
+    body:not([data-theme="dark"]) header .nav-links a:focus {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.12);
     }
 
     .nav-links li {
