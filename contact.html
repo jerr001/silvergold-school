@@ -63,7 +63,10 @@
 
                     <div class="contact-card">
                         <h2>Send us a Message</h2>
-                        <form id="contactForm">
+                        <form id="contactForm" action="https://formsubmit.co/silvergoldbritishhighschoolng@gmail.com" method="POST">
+                            <input type="hidden" name="_subject" value="Silvergold School Website - New Contact Message">
+                            <input type="hidden" name="_captcha" value="false">
+                            <input type="hidden" name="_template" value="table">
                             <div class="form-group">
                                 <label for="name">Name</label>
                                 <input type="text" id="name" name="name" required>
@@ -77,6 +80,7 @@
                                 <textarea id="message" name="message" rows="5" required></textarea>
                             </div>
                             <button type="submit" class="btn primary">Send Message</button>
+                            <div id="formStatus" style="margin-top: 1rem; display: none;"></div>
                         </form>
                     </div>
                 </div>

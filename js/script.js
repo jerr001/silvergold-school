@@ -44,8 +44,9 @@ navItems.forEach(item => {
     });
 });
 
-// Contact form validation
+// Contact form validation and submission
 const contactForm = document.getElementById('contactForm');
+const formStatus = document.getElementById('formStatus');
 
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
@@ -80,13 +81,44 @@ if (contactForm) {
             errorMessage += 'Message is required.\n';
         }
 
-        if (isValid) {
-            // Here you would typically send the form data to a server
-            alert('Thank you for your message! We will get back to you soon.');
-            contactForm.reset();
-        } else {
+        if (!isValid) {
             alert('Please correct the following errors:\n' + errorMessage);
+            return;
         }
+
+        // Show sending state
+        const submitBtn = contactForm.querySelector('button[type="submit"]');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'Sending...';
+        submitBtn.disabled = true;
+        formStatus.style.display = 'none';
+
+        // Submit via fetch to FormSubmit.co
+        const formData = new FormData(contactForm);
+
+        fetch(contactForm.action, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                formStatus.textContent = 'Thank you! Your message has been sent successfully. We will get back to you soon.';
+                formStatus.style.color = '#28a745';
+                formStatus.style.display = 'block';
+                contactForm.reset();
+            } else {
+                throw new Error('Server responded with an error');
+            }
+        })
+        .catch(() => {
+            formStatus.textContent = 'Sorry, something went wrong. Please try again later or email us directly.';
+            formStatus.style.color = '#dc3545';
+            formStatus.style.display = 'block';
+        })
+        .finally(() => {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        });
     });
 }
 
