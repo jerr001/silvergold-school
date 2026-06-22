@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Silvergold British High School - Gallery</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/silvergold-logo.png" alt="Silvergold British High School Logo">
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="academics.html">Academics</a></li>
+                <li><a href="admissions.html">Admissions</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+                🌙
+            </button>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Gallery</h1>
+            </div>
+        </section>
+
+        <section class="gallery-section">
+            <div class="container">
+                <div class="gallery-grid">
+                    <div class="gallery-card" data-image="images/hero-image.jpg" data-alt="Gallery image 1">
+                        <img src="images/hero-image.jpg" alt="Gallery image">
+                    </div>
+                    <div class="gallery-card" data-image="images/image-1.jpg" data-alt="Gallery image 2">
+                        <img src="images/image-1.jpg" alt="Gallery image">
+                    </div>
+                    <div class="gallery-card" data-image="images/image-2.jpg" data-alt="Gallery image 3">
+                        <img src="images/image-2.jpg" alt="Gallery image">
+                    </div>
+                    <div class="gallery-card" data-image="images/image-3.jpg" data-alt="Gallery image 4">
+                        <img src="images/image-3.jpg" alt="Gallery image">
+                    </div>
+                    <div class="gallery-card" data-image="images/image-4.jpg" data-alt="Gallery image 5">
+                        <img src="images/image-4.jpg" alt="Gallery image">
+                    </div>
+                    <div class="gallery-card" data-image="images/image-5.jpg" data-alt="Gallery image 6">
+                        <img src="images/image-5.jpg" alt="Gallery image">
+                    </div>
+                    <div class="gallery-card" data-image="images/image-6.jpg" data-alt="Gallery image 7">
+                        <img src="images/image-6.jpg" alt="Gallery image">
+                    </div>
+                    <div class="gallery-card" data-image="images/image-7.jpg" data-alt="Gallery image 8">
+                        <img src="images/image-7.jpg" alt="Gallery image">
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Silvergold British High School</h3>
+                    <p>Raising Future Leaders</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="academics.html">Academics</a></li>
+                        <li><a href="admissions.html">Admissions</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="news.html">News</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p>Lagos, Nigeria</p>
+                    <p>Phone: +234 806 666 3355</p>
+                    <p>Email: <a href="mailto:silvergoldbritishhighschoolng@gmail.com">silvergoldbritishhighschoolng@gmail.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <p>Facebook | Twitter | Instagram</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Image Lightbox Modal -->
+    <div id="imageModal" class="image-modal">
+        <span class="modal-close">&times;</span>
+        <div class="modal-content">
+            <img id="modalImage" src="" alt="Enlarged gallery image">
+        </div>
+        <div class="modal-navigation">
+            <button class="modal-prev" aria-label="Previous image">❮</button>
+            <button class="modal-next" aria-label="Next image">❯</button>
+        </div>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
+
