@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parent Feedback and Suggestions - Silvergold British High School</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo"><img src="images/silvergold-logo.png" alt="Silvergold British High School Logo"></div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="academics.html">Academics</a></li><li><a href="admissions.html">Admissions</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="news.html">News</a></li><li><a href="contact.html">Contact</a></li><li><a href="feedback.html" aria-current="page">Parent Feedback</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🌙</button>
+            <div class="hamburger"><span></span><span></span><span></span></div>
+        </nav>
+    </header>
+    <main>
+        <section class="page-header"><div class="container"><h1>Parent Feedback &amp; Suggestions</h1></div></section>
+        <section class="contact-section"><div class="container">
+            <div class="contact-card">
+                <h2>Share your feedback</h2>
+                <p>We welcome your feedback, suggestions, concerns, and compliments. Please provide your contact details so the school can respond.</p>
+                <form id="feedbackForm">
+                    <div class="form-row"><div class="form-group"><label for="parentName">Parent or guardian name *</label><input id="parentName" name="parentName" maxlength="120" autocomplete="name" required></div><div class="form-group"><label for="feedbackEmail">Email address *</label><input id="feedbackEmail" name="email" type="email" maxlength="254" autocomplete="email" required></div></div>
+                    <div class="form-row"><div class="form-group"><label for="feedbackPhone">Phone number</label><input id="feedbackPhone" name="phone" type="tel" maxlength="40" autocomplete="tel"></div><div class="form-group"><label for="feedbackCategory">What would you like to share? *</label><select id="feedbackCategory" name="category" required><option value="">Choose one</option><option>Feedback</option><option>Suggestion</option><option>Concern</option><option>Compliment</option></select></div></div>
+                    <div class="form-row"><div class="form-group"><label for="feedbackStudent">Student name (optional)</label><input id="feedbackStudent" name="studentName" maxlength="120"></div><div class="form-group"><label for="feedbackClass">Student's class (optional)</label><input id="feedbackClass" name="className" maxlength="80"></div></div>
+                    <div class="form-group"><label for="feedbackSubject">Subject *</label><input id="feedbackSubject" name="subject" maxlength="160" required></div>
+                    <div class="form-group"><label for="feedbackMessage">Your message *</label><textarea id="feedbackMessage" name="message" rows="6" maxlength="5000" required></textarea></div>
+                    <button class="btn primary" type="submit">Send feedback</button>
+                    <p id="feedbackStatus" role="status" aria-live="polite" style="margin-top:1rem"></p>
+                </form>
+            </div>
+        </div></section>
+    </main>
+    <footer><div class="container"><div class="footer-content"><div class="footer-section"><h3>Silvergold British High School</h3><p>Raising Future Leaders</p></div><div class="footer-section"><h3>Quick Links</h3><ul><li><a href="admissions.html">Admissions</a></li><li><a href="contact.html">Contact</a></li><li><a href="feedback.html">Parent Feedback</a></li></ul></div><div class="footer-section"><h3>Contact Info</h3><p>Lagos, Nigeria</p><p>Phone: +234 806 666 3355</p><p>Email: <a href="mailto:silvergoldbritishhighschoolng@gmail.com">silvergoldbritishhighschoolng@gmail.com</a></p></div></div></div></footer>
+    <script src="js/script.js"></script>
+    <script src="js/feedback.js"></script>
+    <script src="js/content-targets.js"></script>
+    <script src="js/site-content.js"></script>
+</body>
+</html>

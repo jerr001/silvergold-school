@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Silvergold Admin Dashboard</title><link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin-shell">
+  <aside class="sidebar"><a class="brand" href="/admin/"><img src="/images/silvergold-logo.png" alt=""><span>SilverGold<br><small>School Admin</small></span></a>
+    <nav aria-label="Dashboard sections">
+      <button class="nav-item active" data-view="overview">Overview</button><button class="nav-item" data-view="content">Website Content</button><button class="nav-item" data-view="news">News Management</button><button class="nav-item" data-view="gallery">Gallery Management</button><button class="nav-item" data-view="videos">Video Management</button><button class="nav-item" data-view="admissions">Admission Applications</button><button class="nav-item" data-view="contact">Contact Messages</button><button class="nav-item" data-view="feedback">Parent Feedback</button><button class="nav-item" data-view="settings">Settings</button>
+    </nav><button id="logout" class="logout">Log out</button>
+  </aside>
+  <main class="dashboard"><header class="topbar"><div><p class="eyebrow">SILVERGOLD BRITISH HIGH SCHOOL</p><h1 id="pageTitle">Dashboard overview</h1></div><span id="adminEmail" class="admin-email"></span></header><div id="notice" role="status" aria-live="polite"></div>
+    <section id="view" aria-live="polite"><p>Loading your dashboard…</p></section>
+  </main>
+  <dialog id="newsDialog"><form id="newsForm" class="form-card"><div class="dialog-head"><h2 id="newsDialogTitle">New article</h2><button type="button" class="icon-button" data-close>Close</button></div><input type="hidden" name="id"><label>Headline<input name="title" maxlength="160" required></label><label>Summary<textarea name="excerpt" maxlength="500" rows="3"></textarea></label><label>Article content<textarea name="content" maxlength="20000" rows="9" required></textarea></label><label>Featured image<input id="featuredImageFile" type="file" accept="image/jpeg,image/png,image/webp"><input name="imageUrl" type="url" placeholder="Image URL (or upload above)"><img id="featuredPreview" alt="Featured image preview" hidden style="max-width:100%;max-height:200px;object-fit:cover"></label><div class="form-row"><label>Category<input name="category" maxlength="80" value="Announcement"></label><label>Publish date<input name="publishedAt" type="date"></label></div><label>Status<select name="status"><option value="draft">Draft</option><option value="published">Published</option></select></label><div id="articlePreview" class="panel" hidden></div><div class="dialog-actions"><button type="button" class="button secondary" id="previewNews">Preview</button><button type="button" class="button secondary" data-close>Cancel</button><button class="button">Save article</button></div></form></dialog>
+  <script src="/js/content-targets.js"></script><script src="admin.js" defer></script>
+</body></html>

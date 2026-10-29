@@ -20,6 +20,7 @@
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="news.html">News</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="feedback.html">Parent Feedback</a></li>
             </ul>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                 🌙
@@ -67,6 +68,21 @@
                         <a href="contact.html" class="btn primary">Apply Now</a>
                     </div>
                 </div>
+                <section class="admission-card application-form-card">
+                    <h2>Online Application</h2>
+                    <p>Complete the form below. Required fields are marked with an asterisk.</p>
+                    <form id="admissionForm" novalidate>
+                        <div class="form-row"><div class="form-group"><label for="studentName">Student's full name *</label><input id="studentName" name="studentName" maxlength="120" required></div><div class="form-group"><label for="dateOfBirth">Date of birth *</label><input id="dateOfBirth" name="dateOfBirth" type="date" required></div></div>
+                        <div class="form-row"><div class="form-group"><label for="gender">Gender</label><select id="gender" name="gender"><option value="">Prefer not to say</option><option>Female</option><option>Male</option></select></div><div class="form-group"><label for="yearGroup">Class applying for *</label><input id="yearGroup" name="yearGroup" type="text" maxlength="80" placeholder="For example, Primary 4 or JSS 2" required></div></div>
+                        <div class="form-group"><label for="currentSchool">Current school</label><input id="currentSchool" name="currentSchool" maxlength="160"></div>
+                        <div class="form-row"><div class="form-group"><label for="guardianName">Parent or guardian's full name *</label><input id="guardianName" name="guardianName" maxlength="120" required></div><div class="form-group"><label for="relationship">Relationship to student</label><input id="relationship" name="relationship" maxlength="80"></div></div>
+                        <div class="form-row"><div class="form-group"><label for="phone">Phone number *</label><input id="phone" name="phone" type="tel" maxlength="40" required></div><div class="form-group"><label for="admissionEmail">Email address *</label><input id="admissionEmail" name="email" type="email" maxlength="254" required></div></div>
+                        <div class="form-group"><label for="address">Residential address</label><textarea id="address" name="address" rows="2" maxlength="500"></textarea></div>
+                        <div class="form-group"><label for="admissionMessage">Additional notes</label><textarea id="admissionMessage" name="message" rows="4" maxlength="2000"></textarea></div>
+                        <div class="form-group" aria-hidden="true" style="position:absolute;left:-10000px"><label for="admissionWebsite">Leave this field empty</label><input id="admissionWebsite" name="website" tabindex="-1" autocomplete="off"></div>
+                        <button class="btn primary" type="submit">Submit Application</button><p id="admissionStatus" role="status" aria-live="polite"></p>
+                    </form>
+                </section>
             </div>
         </section>
     </main>
@@ -104,6 +120,8 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script src="js/content-targets.js"></script>
+    <script src="js/site-content.js"></script>
 </body>
 </html>
 

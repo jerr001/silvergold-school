@@ -20,6 +20,7 @@
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="news.html">News</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="feedback.html">Parent Feedback</a></li>
             </ul>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                 🌙
@@ -44,6 +45,18 @@
             </div>
             <div class="hero-image">
                 <img src="images/hero-image.jpg" alt="Silvergold hero image">
+            </div>
+        </section>
+
+        <section class="news-preview">
+            <div class="container">
+                <h2>Latest News</h2>
+                <div class="carousel-container">
+                    <div class="carousel" id="newsCarousel" data-public-news><p class="content-empty">Loading news…</p></div>
+                    <button class="carousel-nav prev" id="prevBtn" aria-label="Previous slide">‹</button>
+                    <button class="carousel-nav next" id="nextBtn" aria-label="Next slide">›</button>
+                </div>
+                <a href="news.html" class="btn primary" style="margin-top: 2rem;">View All News</a>
             </div>
         </section>
 
@@ -154,34 +167,6 @@
             </div>
         </section>
 
-        <section class="news-preview">
-            <div class="container">
-                <h2>Latest News</h2>
-                <div class="carousel-container">
-                    <div class="carousel" id="newsCarousel">
-                        <div class="news-card carousel-item">
-                            <h2>School Reopens for New Term</h2>
-                            <p class="date">May 1, 2026</p>
-                            <p>Welcome back to all students as we begin a new exciting term filled with learning and growth opportunities.</p>
-                        </div>
-                        <div class="news-card carousel-item">
-                            <h2>Science Fair Winners Announced</h2>
-                            <p class="date">April 15, 2026</p>
-                            <p>Congratulations to our students who excelled in the annual science fair. Their innovative projects showcased creativity and scientific thinking.</p>
-                        </div>
-                        <div class="news-card carousel-item">
-                            <h2>Parent-Teacher Meeting</h2>
-                            <p class="date">April 10, 2026</p>
-                            <p>Join us for our quarterly parent-teacher meeting this weekend to discuss student progress and future plans.</p>
-                        </div>
-                    </div>
-                    <button class="carousel-nav prev" id="prevBtn" aria-label="Previous slide">‹</button>
-                    <button class="carousel-nav next" id="nextBtn" aria-label="Next slide">›</button>
-                </div>
-                <a href="news.html" class="btn primary" style="margin-top: 2rem;">View All News</a>
-            </div>
-        </section>
-
         <section class="testimonials">
             <div class="container">
                 <h2>What Parents Say</h2>
@@ -239,6 +224,9 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script src="js/content-targets.js"></script>
+    <script src="js/site-content.js"></script>
+    <script src="js/public-content.js"></script>
 </body>
 </html>
 

@@ -93,25 +93,38 @@ if (contactForm) {
         submitBtn.disabled = true;
         formStatus.style.display = 'none';
 
-        // Submit via fetch to FormSubmit.co
-        const formData = new FormData(contactForm);
+        // Submit to the school server API.
+        const formData = {
+            name: name,
+            email: email,
+            message: message
+        };
 
-        fetch(contactForm.action, {
+        fetch('/api/contact', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(formData)
         })
-        .then(response => {
-            if (response.ok) {
-                formStatus.textContent = 'Thank you! Your message has been sent successfully. We will get back to you soon.';
-                formStatus.style.color = '#28a745';
-                formStatus.style.display = 'block';
-                contactForm.reset();
-            } else {
-                throw new Error('Server responded with an error');
-            }
-        })
-        .catch(() => {
-            formStatus.textContent = 'Sorry, something went wrong. Please try again later or email us directly.';
+          .then(async response => {
+              const data = await response.json().catch(() => ({}));
+              if (!response.ok || !data.ok) {
+                  throw new Error(data.error || `The school server could not accept your message (HTTP ${response.status}).`);
+              }
+              return data;
+          })
+          .then(data => {
+              formStatus.textContent = data.message || 'Thank you. We have received your message. Please check your email address for a response.';
+              formStatus.style.color = '#28a745';
+              formStatus.style.display = 'block';
+              contactForm.reset();
+          })
+          .catch(error => {
+              formStatus.textContent = error.message === 'Failed to fetch'
+                  ? 'Cannot reach the school server. Open the website through http://localhost:3000, then try again.'
+                  : (error.message || 'Sorry, something went wrong. Please try again later.');
             formStatus.style.color = '#dc3545';
             formStatus.style.display = 'block';
         })
@@ -153,45 +166,6 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Carousel functionality
-let currentSlide = 0;
-const carousel = document.getElementById('newsCarousel');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
-
-function showSlide(index) {
-    if (carousel) {
-        const slides = carousel.querySelectorAll('.carousel-item');
-        if (slides.length > 0) {
-            currentSlide = (index + slides.length) % slides.length;
-            carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
-        }
-    }
-}
-
-if (prevBtn) {
-    prevBtn.addEventListener('click', () => {
-        showSlide(currentSlide - 1);
-    });
-}
-
-if (nextBtn) {
-    nextBtn.addEventListener('click', () => {
-        showSlide(currentSlide + 1);
-    });
-}
-
-// Keyboard navigation for carousel
-document.addEventListener('keydown', (e) => {
-    if (carousel) {
-        if (e.key === 'ArrowLeft') {
-            showSlide(currentSlide - 1);
-        } else if (e.key === 'ArrowRight') {
-            showSlide(currentSlide + 1);
-        }
-    }
-});
-
 // Observe elements for animations
 document.addEventListener('DOMContentLoaded', () => {
     const animatedElements = document.querySelectorAll('.fade-in-up, .slide-in-left, .slide-in-right');
@@ -212,10 +186,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    if (carousel) {
-        showSlide(0);
-        setInterval(() => showSlide(currentSlide + 1), 7000);
-    }
 });
 
 // Gallery lightbox functionality
@@ -293,4 +263,36 @@ function updateModalImage() {
     const image = images[currentImageIndex];
     modalImage.src = image.src;
     modalImage.alt = image.alt;
+}
+
+// Submit admission applications to the school's API.
+const admissionForm = document.getElementById('admissionForm');
+if (admissionForm) {
+    const admissionStatus = document.getElementById('admissionStatus');
+    admissionForm.addEventListener('submit', async event => {
+        event.preventDefault();
+        if (!admissionForm.reportValidity()) return;
+        const button = admissionForm.querySelector('button[type="submit"]');
+        button.disabled = true;
+        button.textContent = 'Submitting…';
+        admissionStatus.textContent = '';
+        try {
+            const response = await fetch('/api/admissions', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(Object.fromEntries(new FormData(admissionForm)))
+            });
+            const result = await response.json();
+            if (!response.ok) throw new Error(result.error || 'Unable to submit your application.');
+            admissionStatus.textContent = `Thank you. Your application was received. Reference: ${result.reference}`;
+            admissionStatus.style.color = '#17633a';
+            admissionForm.reset();
+        } catch (error) {
+            admissionStatus.textContent = error.message;
+            admissionStatus.style.color = '#a73737';
+        } finally {
+            button.disabled = false;
+            button.textContent = 'Submit Application';
+        }
+    });
 }

@@ -20,6 +20,7 @@
                 <li><a href="gallery.html">Gallery</a></li>
                 <li><a href="news.html">News</a></li>
                 <li><a href="contact.html">Contact</a></li>
+                <li><a href="feedback.html">Parent Feedback</a></li>
             </ul>
             <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
                 🌙
@@ -41,37 +42,7 @@
 
         <section class="news-section">
             <div class="container">
-                <div class="news-cards">
-                    <div class="news-card">
-                        <h2>School Reopens for New Term</h2>
-                        <p class="date">May 1, 2026</p>
-                        <p>Welcome back to all students as we begin a new exciting term filled with learning and growth opportunities.</p>
-                    </div>
-
-                    <div class="news-card">
-                        <h2>Science Fair Winners Announced</h2>
-                        <p class="date">April 15, 2026</p>
-                        <p>Congratulations to our students who excelled in the annual science fair. Their innovative projects showcased creativity and scientific thinking.</p>
-                    </div>
-
-                    <div class="news-card">
-                        <h2>Parent-Teacher Meeting</h2>
-                        <p class="date">April 10, 2026</p>
-                        <p>Join us for our quarterly parent-teacher meeting this weekend to discuss student progress and future plans.</p>
-                    </div>
-
-                    <div class="news-card">
-                        <h2>Sports Day Success</h2>
-                        <p class="date">March 20, 2026</p>
-                        <p>Our annual sports day was a great success with students showcasing their athletic abilities and team spirit.</p>
-                    </div>
-
-                    <div class="news-card">
-                        <h2>New Library Books Arrive</h2>
-                        <p class="date">March 15, 2026</p>
-                        <p>Exciting news! Our library has received a new collection of books to enhance our students' reading experience.</p>
-                    </div>
-                </div>
+                <div class="news-cards" data-public-news><p class="content-empty">Loading news…</p></div>
             </div>
         </section>
     </main>
@@ -109,6 +80,9 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script src="js/content-targets.js"></script>
+    <script src="js/site-content.js"></script>
+    <script src="js/public-content.js"></script>
 </body>
 </html>
 
