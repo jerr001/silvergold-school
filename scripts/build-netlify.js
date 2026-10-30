@@ -34,4 +34,13 @@ for (const page of pages) fs.copyFileSync(path.join(root, page), path.join(outpu
 for (const folder of ['admin', 'css', 'images', 'js']) {
   copyPublicFiles(path.join(root, folder), path.join(output, folder));
 }
+
+if (process.env.API_BASE_URL) {
+  const apiBase = new URL(process.env.API_BASE_URL);
+  if (apiBase.protocol !== 'https:' || apiBase.pathname !== '/' || apiBase.search || apiBase.hash) {
+    throw new Error('API_BASE_URL must be an HTTPS service origin, such as https://silvergold-api.onrender.com.');
+  }
+  fs.writeFileSync(path.join(output, '_redirects'), `/api/* ${apiBase.origin}/api/:splat 200!\n`);
+}
+
 console.log(`Prepared static Netlify site in ${path.relative(root, output)}.`);

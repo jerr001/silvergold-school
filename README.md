@@ -40,7 +40,7 @@ To add or reset an administrator safely, configure `ADMIN_EMAIL` and `ADMIN_PASS
 
 ## Deployment and recovery
 
-Deploy to a Node.js host that supports a persistent process and environment variables (for example, a managed Node service or container platform), with HTTPS termination, MongoDB network access restricted to the application, and Cloudinary credentials configured. A static-only host cannot run the API; it must proxy the existing public pages and `/api/*` routes to the Node service, or the site must be served by this Express application. Uploads live in Cloudinary, not on ephemeral server disk. Use MongoDB Atlas automated backups or scheduled `mongodump` backups and periodically verify recovery with `mongorestore` to a separate database.
+The frontend can deploy to Netlify while the Express API runs as a Node web service (for example, on Render). For the API service, use `npm install` as the build command and `npm start` as the start command. Set `NODE_ENV=production`, `MONGODB_URI`, a random `SESSION_SECRET` of at least 32 characters, and the three Cloudinary values in the API host's environment settings. Allow the API host's outbound IP ranges in MongoDB Atlas. The Netlify build publishes only the static site files. Set a Netlify build environment variable named `API_BASE_URL` to the API service's HTTPS origin (for example, `https://silvergold-api.onrender.com`) so the build adds a same-origin `/api/*` proxy. Do not put database, session, or Cloudinary secrets in Netlify or frontend code. Uploads live in Cloudinary, not on ephemeral server disk. Use MongoDB Atlas automated backups or scheduled `mongodump` backups and periodically verify recovery with `mongorestore` to a separate database.
 
 ## Troubleshooting
 
