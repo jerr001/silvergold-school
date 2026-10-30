@@ -5,6 +5,7 @@
   "description": "Silvergold British High School website and content administration API",
   "engines": { "node": ">=20" },
   "scripts": {
+    "build:netlify": "node scripts/build-netlify.js",
     "start": "node server.js",
     "dev": "node --watch server.js",
     "check-db": "node scripts/check-database.js",
