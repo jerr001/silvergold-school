@@ -146,6 +146,7 @@ async function contentPage(pageName = 'index') {
   const parsed = new DOMParser().parseFromString(source, 'text/html');
   const targets = window.SilvergoldContentTargets.collect(parsed.body);
   const values = saved.values || {};
+  const hasOlderSavedEdits = Object.keys(values).some(key => key !== 'page-title' && !key.startsWith('cms-'));
   const titleValue = values['page-title'] ?? parsed.title;
   const groupedTargets = new Map();
   const fallbackSectionNumbers = new Map();
@@ -174,7 +175,8 @@ async function contentPage(pageName = 'index') {
     }).join('');
     return `<fieldset class="content-group"><legend>${esc(groupName)}</legend>${fields}</fieldset>`;
   }).join('');
-  $('#contentFields').innerHTML = `<fieldset class="content-group"><legend>Page settings</legend><label class="content-field"><span>Browser tab title</span><input data-content-key="page-title" value="${esc(titleValue)}" maxlength="200"></label></fieldset>${sections}<div class="toolbar"><button class="button" id="savePageContent">Save ${esc(contentPages.find(([id]) => id === pageName)?.[1] || 'page')} content</button><a class="button secondary" href="/${pageName}.html" target="_blank" rel="noopener">Preview page</a></div>`;  $('#savePageContent').onclick = async event => {
+  const migrationNotice = hasOlderSavedEdits ? '<p class="notice">Some older saved edits are being kept safely, but their old positions no longer match this page. The fields below show the page layout as it is now. Re-enter any edits you still want, then save; the older saved copy will remain stored.</p>' : '';
+  $('#contentFields').innerHTML = `${migrationNotice}<fieldset class="content-group"><legend>Page settings</legend><label class="content-field"><span>Browser tab title</span><input data-content-key="page-title" value="${esc(titleValue)}" maxlength="200"></label></fieldset>${sections}<div class="toolbar"><button class="button" id="savePageContent">Save ${esc(contentPages.find(([id]) => id === pageName)?.[1] || 'page')} content</button><a class="button secondary" href="/${pageName}.html" target="_blank" rel="noopener">Preview page</a></div>`;  $('#savePageContent').onclick = async event => {
     const button = event.currentTarget; button.disabled = true;
     const updated = Object.fromEntries([...$('#contentFields').querySelectorAll('[data-content-key]')].map(field => [field.dataset.contentKey, field.value]));
     try { await api('/api/admin/content', { method: 'PUT', body: JSON.stringify({ page: pageName, values: updated }) }); say('Website content saved. Refresh the public page to see your changes.'); }
