@@ -194,8 +194,11 @@ async function contentPage(pageName = 'index') {
       const result = await api('/api/admin/content', { method: 'PUT', body: JSON.stringify({ page: pageName, values: updated }) });
       const failedKeys = Object.entries(updated).filter(([key, value]) => result?.values?.[key] !== value).map(([key]) => key);
       if (failedKeys.length) throw new Error('The server did not confirm every saved field. Your changes may be going to a different database than the public website. Please contact support with this message.');
-      status.textContent = 'Saved. Refresh the public page to see your changes.'; button.textContent = 'Saved';
-      say('Website content saved. Refresh the public page to see your changes.');
+      const publicCopy = await api(`/api/content/${encodeURIComponent(pageName)}?verify=${Date.now()}`, { cache: 'no-store' });
+      const publicMismatch = Object.entries(updated).some(([key, value]) => publicCopy?.values?.[key] !== value);
+      if (publicMismatch) throw new Error('The dashboard accepted the save, but the public website API still returns different content. The dashboard and public site may be connected to different databases.');
+      status.textContent = 'Saved and verified. Refresh the public page to see your changes.'; button.textContent = 'Saved';
+      say('Website content saved and verified. Refresh the public page to see your changes.');
     }
     catch (error) { status.classList.add('error'); status.textContent = `Could not save: ${error.message}`; say(error.message, true); }
     finally { if (button.isConnected) { button.disabled = false; if (button.textContent === 'Saving…') button.textContent = originalLabel; else if (button.textContent === 'Saved') setTimeout(() => { if (button.isConnected && button.textContent === 'Saved') button.textContent = originalLabel; }, 2500); } }
