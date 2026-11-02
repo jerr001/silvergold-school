@@ -14,6 +14,21 @@
         values[heroTagline.key] = values['text-8'];
       }
     }
+    // The live admin stored these two home hero fields under IDs from an earlier
+    // page parse. Point those saved values at the actual hero elements so the
+    // newer renderer does not leave the old copy in place.
+    if (page === 'index') {
+      const targets = window.SilvergoldContentTargets.collect(document.body);
+      const legacyHeroValues = [
+        ['cms-text-eee4db0c', 'main .hero .hero-content > h1'],
+        ['cms-text-6ee5d81f', 'main .hero .hero-content > p']
+      ];
+      for (const [savedKey, selector] of legacyHeroValues) {
+        const element = document.querySelector(selector);
+        const target = targets.find(item => item.kind === 'text' && item.node.parentElement === element);
+        if (target && typeof values[savedKey] === 'string') values[target.key] = values[savedKey];
+      }
+    }
     const pageTitle = document.querySelector('head title');
     if (pageTitle && typeof values['page-title'] === 'string') pageTitle.textContent = values['page-title'];
     for (const target of window.SilvergoldContentTargets.collect(document.body)) {
