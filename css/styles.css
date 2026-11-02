@@ -235,6 +235,8 @@ nav {
 }
 
 @media (min-width: 769px) {
+    /* Move only the logo toward the outer edge so the desktop menu keeps its current layout. */
+    .logo { transform: translateX(-14px); }
     .nav-links { gap: 0.25rem; margin: 0; padding: 0; }
     .nav-links li { margin-left: 0; }
     .nav-links a { padding: 0.5rem 0.55rem; font-size: 0.95rem; white-space: nowrap; }

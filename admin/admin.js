@@ -184,7 +184,9 @@ async function contentPage(pageName = 'index') {
     button.textContent = 'Saving…';
     try {
       const updated = Object.fromEntries([...$('#contentFields').querySelectorAll('[data-content-key]')].map(field => [field.dataset.contentKey, field.value]));
-      await api('/api/admin/content', { method: 'PUT', body: JSON.stringify({ page: pageName, values: updated }) });
+      const result = await api('/api/admin/content', { method: 'PUT', body: JSON.stringify({ page: pageName, values: updated }) });
+      const failedKeys = Object.entries(updated).filter(([key, value]) => result?.values?.[key] !== value).map(([key]) => key);
+      if (failedKeys.length) throw new Error('The server did not confirm every saved field. Your changes may be going to a different database than the public website. Please contact support with this message.');
       status.textContent = 'Saved. Refresh the public page to see your changes.'; button.textContent = 'Saved';
       say('Website content saved. Refresh the public page to see your changes.');
     }
