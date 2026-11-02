@@ -145,7 +145,14 @@ async function contentPage(pageName = 'index') {
   const [source, saved] = await Promise.all([fetch(`/${pageName}.html`).then(response => { if (!response.ok) throw new Error('Could not load that website page.'); return response.text(); }), api(`/api/admin/content?page=${encodeURIComponent(pageName)}`)]);
   const parsed = new DOMParser().parseFromString(source, 'text/html');
   const targets = window.SilvergoldContentTargets.collect(parsed.body);
-  const values = saved.values || {};
+  const values = { ...(saved.values || {}) };
+  // Carry this requested hero paragraph forward from the old positional content key.
+  if (pageName === 'index' && values['text-8'] === "God's Own School") {
+    const heroTagline = targets.find(target => target.kind === 'text' && target.value.trim() === 'Raising Future Leaders with Excellence and Integrity');
+    if (heroTagline && (!values[heroTagline.key] || values[heroTagline.key] === heroTagline.value)) {
+      values[heroTagline.key] = values['text-8'];
+    }
+  }
   const contentSaveReady = saved.contentSchema === 2;
   const hasOlderSavedEdits = Object.keys(values).some(key => key !== 'page-title' && !key.startsWith('cms-'));
   const titleValue = values['page-title'] ?? parsed.title;
