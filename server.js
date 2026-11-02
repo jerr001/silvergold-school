@@ -57,7 +57,11 @@ function slugify(value) { return value.toLowerCase().normalize('NFKD').replace(/
 async function uniqueSlug(title, skipId) { const root = slugify(title); let slug = root; let suffix = 2; while (await models.News.exists({ slug, ...(skipId ? { _id: { $ne: skipId } } : {}) })) slug = `${root}-${suffix++}`; return slug; }
 function safeNews(doc) { const item = doc.toObject ? doc.toObject() : doc; delete item.__v; return item; }
 
-app.get('/api/health', (_req, res) => res.json({ ok: mongoose.connection.readyState === 1 }));
+app.get('/api/health', (_req, res) => res.json({
+  ok: mongoose.connection.readyState === 1,
+  contentSchema: 2,
+  commit: process.env.RENDER_GIT_COMMIT || 'unknown'
+}));
 const contentPages = new Set(['index', 'about', 'academics', 'admissions', 'contact', 'feedback', 'gallery', 'news']);
 app.get('/api/content/:page', async (req, res, next) => { try { if (!contentPages.has(req.params.page)) return res.status(404).json({ error: 'Page content not found.' }); const page = await models.PageContent.findOne({ page: req.params.page }).lean(); res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate'); res.set('Pragma', 'no-cache'); res.set('Expires', '0'); res.json({ values: page?.values || {} }); } catch (e) { next(e); } });
 app.post('/api/admin/login', loginLimiter, async (req, res, next) => {
