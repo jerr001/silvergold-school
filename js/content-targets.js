@@ -1,5 +1,6 @@
 (() => {
   const ignored = 'script,style,noscript,template,[data-public-news],.gallery-grid,.theme-toggle,.hamburger,.carousel-nav,.why-icon,.stars,#imageModal';
+  const transientClasses = new Set(['active', 'open', 'show', 'visible', 'loaded', 'expanded', 'collapsed', 'selected']);
 
   function excluded(node) { return Boolean(node.parentElement?.closest(ignored)); }
 
@@ -12,7 +13,7 @@
         ? [...element.parentElement.children].filter(item => item.tagName === element.tagName)
         : [];
       const position = siblings.indexOf(element) + 1;
-      const classes = [...element.classList].sort().join('.');
+      const classes = [...element.classList].filter(name => !transientClasses.has(name)).sort().join('.');
       const identity = element.id ? `#${element.id}` : classes ? `.${classes}` : '';
       parts.unshift(`${element.tagName.toLowerCase()}${identity}:${position}`);
       element = element.parentElement;

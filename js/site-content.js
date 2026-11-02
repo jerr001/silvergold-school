@@ -1,7 +1,7 @@
 (async () => {
   const page = location.pathname.split('/').pop().replace(/\.html?$/i, '') || 'index';
   try {
-    const response = await fetch(`/api/content/${encodeURIComponent(page)}`);
+    const response = await fetch(`/api/content/${encodeURIComponent(page)}`, { cache: 'no-store' });
     if (!response.ok) return;
     const { values } = await response.json();
     if (!values || typeof values !== 'object') return;
