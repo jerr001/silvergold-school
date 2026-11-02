@@ -197,11 +197,11 @@ async function contentPage(pageName = 'index') {
       const publicCopy = await api(`/api/content/${encodeURIComponent(pageName)}?verify=${Date.now()}`, { cache: 'no-store' });
       const publicMismatch = Object.entries(updated).some(([key, value]) => publicCopy?.values?.[key] !== value);
       if (publicMismatch) throw new Error('The dashboard accepted the save, but the public website API still returns different content. The dashboard and public site may be connected to different databases.');
-      status.textContent = 'Verified on the live website. Refresh the public page to see your changes.'; button.textContent = 'Verified on site';
-      say('Website content was verified on the live website. Refresh the public page to see your changes.');
+      status.textContent = 'Saved to the live website. Refresh the public page to see your changes.'; button.textContent = 'Saved to site';
+      say('Website content was saved successfully. Refresh the public page to see your changes.');
     }
     catch (error) { status.classList.add('error'); status.textContent = `Could not save: ${error.message}`; say(error.message, true); }
-    finally { if (button.isConnected) { button.disabled = false; if (button.textContent === 'Saving…') button.textContent = originalLabel; else if (button.textContent === 'Verified on site') setTimeout(() => { if (button.isConnected && button.textContent === 'Verified on site') button.textContent = originalLabel; }, 5000); } }
+    finally { if (button.isConnected) { button.disabled = false; if (button.textContent === 'Saving…') button.textContent = originalLabel; else if (button.textContent === 'Saved to site') setTimeout(() => { if (button.isConnected && button.textContent === 'Saved to site') button.textContent = originalLabel; }, 5000); } }
   };
 }
 function debounce(fn, delay = 250) { let timer; return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), delay); }; }
