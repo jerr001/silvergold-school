@@ -37,7 +37,16 @@ hamburger.addEventListener('click', () => {
 
 // Close mobile menu when clicking on a link
 const navItems = document.querySelectorAll('.nav-links a');
+const currentPage = window.location.pathname.replace(/\/+$/, '').split('/').pop() || 'index.html';
 navItems.forEach(item => {
+    const linkedPage = new URL(item.getAttribute('href'), window.location.href).pathname.replace(/\/+$/, '').split('/').pop() || 'index.html';
+    if (linkedPage === currentPage || (currentPage === 'index.html' && linkedPage === '')) {
+        item.classList.add('active');
+        item.setAttribute('aria-current', 'page');
+    } else {
+        item.classList.remove('active');
+        item.removeAttribute('aria-current');
+    }
     item.addEventListener('click', () => {
         navLinks.classList.remove('active');
         hamburger.classList.remove('active');
