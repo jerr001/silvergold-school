@@ -146,6 +146,7 @@ async function contentPage(pageName = 'index') {
   const parsed = new DOMParser().parseFromString(source, 'text/html');
   const targets = window.SilvergoldContentTargets.collect(parsed.body);
   const values = saved.values || {};
+  const contentSaveReady = saved.contentSchema === 2;
   const hasOlderSavedEdits = Object.keys(values).some(key => key !== 'page-title' && !key.startsWith('cms-'));
   const titleValue = values['page-title'] ?? parsed.title;
   const groupedTargets = new Map();
@@ -176,13 +177,19 @@ async function contentPage(pageName = 'index') {
     return `<fieldset class="content-group"><legend>${esc(groupName)}</legend>${fields}</fieldset>`;
   }).join('');
   const migrationNotice = hasOlderSavedEdits ? '<p class="notice">Some older saved edits are being kept safely, but their old positions no longer match this page. The fields below show the page layout as it is now. Re-enter any edits you still want, then save; the older saved copy will remain stored.</p>' : '';
-  $('#contentFields').innerHTML = `${migrationNotice}<fieldset class="content-group"><legend>Page settings</legend><label class="content-field"><span>Browser tab title</span><input data-content-key="page-title" value="${esc(titleValue)}" maxlength="200"></label></fieldset>${sections}<p id="contentSaveStatus" class="content-save-status" role="status" aria-live="polite"></p><div class="toolbar"><button class="button" id="savePageContent">Save ${esc(contentPages.find(([id]) => id === pageName)?.[1] || 'page')} content</button><a class="button secondary" href="/${pageName}.html" target="_blank" rel="noopener">Preview page</a></div>`;  $('#savePageContent').onclick = async event => {
-    const button = event.currentTarget; button.disabled = true;
+  const saveStatus = contentSaveReady ? 'Ready to save.' : 'Website content saving is waiting for the latest backend deployment. In Render, deploy the latest commit, then refresh this dashboard.';
+  $('#contentFields').innerHTML = `${migrationNotice}<fieldset class="content-group"><legend>Page settings</legend><label class="content-field"><span>Browser tab title</span><input data-content-key="page-title" value="${esc(titleValue)}" maxlength="200"></label></fieldset>${sections}<p id="contentSaveStatus" class="content-save-status${contentSaveReady ? '' : ' error'}" role="status" aria-live="polite">${esc(saveStatus)}</p><div class="toolbar"><button class="button" id="savePageContent" ${contentSaveReady ? '' : 'disabled'}>Save ${esc(contentPages.find(([id]) => id === pageName)?.[1] || 'page')} content</button><a class="button secondary" href="/${pageName}.html" target="_blank" rel="noopener">Preview page</a></div>`;  $('#savePageContent').onclick = async event => {
+    const button = event.currentTarget; const originalLabel = button.textContent; button.disabled = true;
     const status = $('#contentSaveStatus'); status.classList.remove('error'); status.textContent = 'Saving your changes…';
-    const updated = Object.fromEntries([...$('#contentFields').querySelectorAll('[data-content-key]')].map(field => [field.dataset.contentKey, field.value]));
-    try { await api('/api/admin/content', { method: 'PUT', body: JSON.stringify({ page: pageName, values: updated }) }); status.textContent = 'Saved. Refresh the public page to see your changes.'; say('Website content saved. Refresh the public page to see your changes.'); }
+    button.textContent = 'Saving…';
+    try {
+      const updated = Object.fromEntries([...$('#contentFields').querySelectorAll('[data-content-key]')].map(field => [field.dataset.contentKey, field.value]));
+      await api('/api/admin/content', { method: 'PUT', body: JSON.stringify({ page: pageName, values: updated }) });
+      status.textContent = 'Saved. Refresh the public page to see your changes.'; button.textContent = 'Saved';
+      say('Website content saved. Refresh the public page to see your changes.');
+    }
     catch (error) { status.classList.add('error'); status.textContent = `Could not save: ${error.message}`; say(error.message, true); }
-    finally { button.disabled = false; }
+    finally { if (button.isConnected) { button.disabled = false; if (button.textContent === 'Saving…') button.textContent = originalLabel; else if (button.textContent === 'Saved') setTimeout(() => { if (button.isConnected && button.textContent === 'Saved') button.textContent = originalLabel; }, 2500); } }
   };
 }
 function debounce(fn, delay = 250) { let timer; return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), delay); }; }
